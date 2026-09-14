@@ -257,6 +257,20 @@ function SignInContent() {
                   </div>
                 </div>
 
+                <div className="flex items-center justify-between pb-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEmail('demo@fluentai.kr');
+                      setPassword('demo1234');
+                    }}
+                    className="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold underline underline-offset-2 flex items-center gap-1 cursor-pointer"
+                  >
+                    <Sparkles className="w-3 h-3" />
+                    <span>체험 계정 1초 채우기 (demo@fluentai.kr)</span>
+                  </button>
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}

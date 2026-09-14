@@ -1,0 +1,24 @@
+[
+  {
+    "id": "user_demo_001",
+    "name": "체험회원 (온더샵)",
+    "email": "demo@fluentai.kr",
+    "salt": "5c7f1ab94dac845646129d6b93f74078",
+    "passwordHash": "4d192d924bf0bc8c406d997fbf3d44019643fb2d0ef94ec6606f7ccccbdbe75fde9e07ad56fad1bdbcba956f40d8f4a216409b789a4c5a544089f92ee6aa3d28",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
+    "role": "user",
+    "provider": "email",
+    "createdAt": "2026-09-14T04:27:46.140Z"
+  },
+  {
+    "id": "user_066224",
+    "name": "테스트유저",
+    "email": "testuser@test.com",
+    "salt": "2e9d6faec91a7b6ac16bdf44b943bcb0",
+    "passwordHash": "697f0798dc268395e62fb21ae9de12ffb048b9b676101b57b4ec61206a9403cb7c0b82d3f7c26c52dc988a0d22b9c4d597c0aa17dcb2b758b33225e8c8709c5b",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
+    "role": "user",
+    "provider": "email",
+    "createdAt": "2026-09-14T04:27:46.224Z"
+  }
+]

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { setSessionCookie, UserSession } from '@/lib/auth';
+import { setSessionCookie } from '@/lib/auth';
+import { authenticateUser } from '@/lib/userStore';
 
 export async function POST(req: Request) {
   try {
@@ -12,32 +13,22 @@ export async function POST(req: Request) {
       );
     }
 
-    if (password.length < 6) {
+    const user = authenticateUser(email, password);
+
+    if (!user) {
       return NextResponse.json(
-        { error: '비밀번호는 최소 6자 이상이어야 합니다.' },
-        { status: 400 }
+        { error: '등록되지 않은 이메일이거나 비밀번호가 일치하지 않습니다.' },
+        { status: 401 }
       );
     }
-
-    const username = email.split('@')[0];
-    const displayName = username.charAt(0).toUpperCase() + username.slice(1);
-
-    const user: UserSession = {
-      id: 'email_' + Date.now().toString().slice(-6),
-      name: displayName + ' 님',
-      email,
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
-      provider: 'email',
-      role: 'user',
-      createdAt: new Date().toISOString(),
-    };
 
     await setSessionCookie(user);
 
     return NextResponse.json({ success: true, user });
   } catch (error) {
+    console.error('Login error:', error);
     return NextResponse.json(
-      { error: '로그인 처리 중 오류가 발생했습니다.' },
+      { error: '로그인 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' },
       { status: 500 }
     );
   }
