@@ -15,10 +15,10 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: '홈' },
     { href: '/resources', label: '무료 자료실', badge: 'HOT' },
-    { href: '/portfolio', label: '포트폴리오', badge: '준비중' },
-    { href: '/courses', label: '온라인 교육', badge: '준비중' },
-    { href: '/services', label: '제작 의뢰', badge: '준비중' },
-    { href: '/tools', label: 'AI 도구 & SaaS', badge: '준비중' },
+    { href: '/portfolio', label: '포트폴리오', badge: '인기' },
+    { href: '/courses', label: '온라인 교육', badge: 'LIVE' },
+    { href: '/services', label: '제작 의뢰', badge: '견적' },
+    { href: '/tools', label: 'AI 도구 & SaaS', badge: 'PRO' },
   ];
 
   return (
@@ -64,8 +64,10 @@ export default function Navbar() {
                     className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold uppercase ${
                       link.badge === 'HOT'
                         ? 'bg-rose-50 text-rose-600 border border-rose-200 animate-pulse'
-                        : link.badge === '준비중'
-                        ? 'bg-slate-100 text-slate-500 border border-slate-200 font-medium'
+                        : link.badge === '인기'
+                        ? 'bg-amber-50 text-amber-700 border border-amber-200 font-semibold'
+                        : link.badge === 'LIVE'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold'
                         : 'bg-indigo-100 text-indigo-700 border border-indigo-200'
                     }`}
                   >
@@ -204,8 +206,10 @@ export default function Navbar() {
                       className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
                         link.badge === 'HOT'
                           ? 'bg-rose-50 text-rose-600 border border-rose-200'
-                          : link.badge === '준비중'
-                          ? 'bg-slate-100 text-slate-500 border border-slate-200 font-medium'
+                          : link.badge === '인기'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : link.badge === 'LIVE'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : 'bg-indigo-100 text-indigo-700'
                       }`}
                     >
