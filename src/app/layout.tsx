@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import KakaoChatWidget from '@/components/KakaoChatWidget';
 import { AuthProvider } from '@/context/AuthContext';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: '유창한 AI | AI 크리에이터 실전 프롬프트 & 비즈니스 플랫폼',
@@ -41,6 +43,8 @@ export default function RootLayout({
           </main>
           <Footer />
           <KakaoChatWidget />
+          <Analytics />
+          <SpeedInsights />
         </AuthProvider>
       </body>
     </html>
