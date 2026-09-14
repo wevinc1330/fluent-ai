@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Search, 
   Sparkles, 
@@ -22,6 +22,18 @@ export default function ResourcesPage() {
   const [activeModalItem, setActiveModalItem] = useState<ResourceItem | null>(null);
   const [savedIds, setSavedIds] = useState<string[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Load bookmarks from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('fluent_ai_saved_prompts');
+      if (saved) {
+        setSavedIds(JSON.parse(saved));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -67,13 +79,18 @@ export default function ResourcesPage() {
       showToast('찜하기 기능은 간편 로그인 후 이용하실 수 있습니다.');
       return;
     }
+    let next: string[];
     if (savedIds.includes(id)) {
-      setSavedIds(savedIds.filter((item) => item !== id));
+      next = savedIds.filter((item) => item !== id);
       showToast('북마크에서 제거되었습니다.');
     } else {
-      setSavedIds([...savedIds, id]);
-      showToast('내 보관함에 저장되었습니다.');
+      next = [...savedIds, id];
+      showToast('내 보관함에 저장되었습니다! 마이페이지에서 확인 가능합니다.');
     }
+    setSavedIds(next);
+    try {
+      localStorage.setItem('fluent_ai_saved_prompts', JSON.stringify(next));
+    } catch {}
   };
 
   const filteredResources = useMemo(() => {
