@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sparkles, Menu, X, User, LogOut, ChevronRight, Smartphone, BookOpen } from 'lucide-react';
+import { Sparkles, Menu, X, User, LogOut, ChevronRight, Smartphone, BookOpen, Bookmark } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Navbar() {
@@ -122,6 +122,14 @@ export default function Navbar() {
                   </div>
                   <div className="py-1">
                     <Link
+                      href="/mypage"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                    >
+                      <User className="w-3.5 h-3.5 text-indigo-600" />
+                      <span>내 마이페이지 & 보관함</span>
+                    </Link>
+                    <Link
                       href="/resources"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 rounded-lg transition-colors"
@@ -160,11 +168,13 @@ export default function Navbar() {
         {/* Mobile Hamburger Button */}
         <div className="flex md:hidden items-center gap-2">
           {user ? (
-            <img
-              src={user.avatar}
-              alt={user.name}
-              className="w-7 h-7 rounded-full object-cover border border-indigo-400"
-            />
+            <Link href="/mypage">
+              <img
+                src={user.avatar}
+                alt={user.name}
+                className="w-7 h-7 rounded-full object-cover border border-indigo-400"
+              />
+            </Link>
           ) : (
             <Link
               href="/auth/signin"
@@ -224,23 +234,29 @@ export default function Navbar() {
 
           <div className="pt-3 border-t border-slate-200">
             {user ? (
-              <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
-                <div className="flex items-center gap-2.5">
-                  <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
-                  <div>
-                    <div className="text-xs font-bold text-slate-800">{user.name}</div>
-                    <div className="text-[10px] text-slate-500">{user.email}</div>
+              <div className="space-y-2">
+                <Link
+                  href="/mypage"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-3 bg-indigo-50/70 rounded-xl border border-indigo-200"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900">{user.name} (마이페이지)</div>
+                      <div className="text-[10px] text-slate-500">{user.email}</div>
+                    </div>
                   </div>
-                </div>
+                  <ChevronRight className="w-4 h-4 text-indigo-600" />
+                </Link>
                 <button
                   type="button"
                   onClick={() => {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-xs text-rose-600 hover:underline flex items-center gap-1 font-semibold cursor-pointer"
+                  className="w-full text-center py-2 text-xs text-rose-600 font-semibold"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
                   로그아웃
                 </button>
               </div>
