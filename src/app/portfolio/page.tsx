@@ -108,6 +108,24 @@ export default function PortfolioPage() {
   return (
     <div className="min-h-screen py-10 md:py-16 bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Service In-Preparation (준비중) Banner */}
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-center gap-3 text-center sm:text-left">
+            <span className="px-2.5 py-1 rounded-md bg-amber-200 text-amber-900 text-xs font-black shrink-0">
+              준비 중 (COMING SOON)
+            </span>
+            <p className="text-xs sm:text-sm font-bold text-amber-950 leading-relaxed">
+              현재 서비스 오픈 준비 중입니다. 지금 바로 이용 가능한 [무료 자료실]에서 최신 프롬프트를 먼저 만나보세요!
+            </p>
+          </div>
+          <Link
+            href="/resources"
+            className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold whitespace-nowrap shadow-xs transition-colors shrink-0"
+          >
+            무료 자료실 가기 →
+          </Link>
+        </div>
+
         {/* Top Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
