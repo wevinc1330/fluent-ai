@@ -15,7 +15,9 @@ import {
   TrendingUp,
   FolderOpen,
   Send,
-  MessageCircle
+  MessageCircle,
+  ChevronDown,
+  HelpCircle
 } from 'lucide-react';
 import { INITIAL_RESOURCES } from '@/data/resourcesData';
 import { INITIAL_PORTFOLIO } from '@/data/portfolioData';
@@ -24,6 +26,30 @@ export default function HomePage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [subscribeEmail, setSubscribeEmail] = useState('');
   const [subscribeSuccess, setSubscribeSuccess] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      q: '무료 프롬프트 자료실의 자료는 정말 평생 무료인가요?',
+      a: '네, 100% 무료입니다! 복잡한 가입 절차나 유료 결제 없이 누구나 원클릭으로 복사하여 실무 업무, 보고서 작성, SNS 마케팅, 이미지 생성에 자유롭게 상업적으로 활용하실 수 있습니다.'
+    },
+    {
+      q: "'준비 중'으로 표시된 온라인 클래스나 제작 의뢰는 언제 오픈되나요?",
+      a: "대표님들과 수강생분들께 최상의 퀄리티를 제공하기 위해 서비스 공정을 정비하고 있습니다. 각 페이지에서 '사전 알림'을 등록해 두시면 정식 런칭 시 선착순 얼리버드 특별 할인 혜택을 이메일로 가장 먼저 안내해 드립니다."
+    },
+    {
+      q: '웹사이트나 AI 광고 영상 제작은 사전 상담이 가능한가요?',
+      a: '네, 언제든 가능합니다! 제작 의뢰 페이지의 실시간 견적 계산기를 활용하시거나, 우측 하단의 노란색 카카오톡 1:1 오픈채팅으로 원하시는 형태의 레퍼런스를 남겨주시면 대표가 직접 친절하게 상담해 드립니다.'
+    },
+    {
+      q: '향후 유료 결제 시 어떤 결제 수단을 지원하나요?',
+      a: '토스페이먼츠(Toss Payments)의 안전한 공식 전자결제 시스템이 연동되어 있습니다. 신용카드, 카카오페이, 네이버페이, 토스페이, 가상계좌 등 국내 모든 결제 수단을 256-bit SSL 암호화로 가장 안전하게 이용하실 수 있습니다.'
+    },
+    {
+      q: '기업 및 비즈니스 제휴 문의는 어떻게 하나요?',
+      a: '기업 맞춤형 프롬프트 구축, 웹사이트 개발 외주, AI 영상 제작 및 제휴 협업은 카카오톡 1:1 오픈채팅으로 문의 내용을 남겨주시면 정휘용 대표가 직접 확인 후 신속하게 회신드립니다.'
+    }
+  ];
 
   const topResources = INITIAL_RESOURCES.slice(0, 4);
   const topPortfolios = INITIAL_PORTFOLIO.slice(0, 3);
@@ -515,6 +541,78 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.5 Frequently Asked Questions (FAQ) */}
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3.5 py-1 text-xs font-bold text-indigo-700 mb-3">
+              <HelpCircle className="w-3.5 h-3.5 text-indigo-600" />
+              자주 묻는 질문
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              궁금한 점을 미리 확인해 보세요
+            </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              무료 자료 활용부터 향후 서비스 오픈 안내까지 가장 자주 묻는 질문들을 모았습니다.
+            </p>
+          </div>
+
+          {/* Accordion list */}
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className={`rounded-2xl border transition-all overflow-hidden ${
+                    isOpen
+                      ? 'bg-indigo-50/40 border-indigo-200 shadow-xs'
+                      : 'bg-white border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    className="w-full px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer"
+                  >
+                    <span className="font-bold text-slate-900 text-sm sm:text-base">
+                      {faq.q}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-indigo-600 shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-indigo-600' : 'text-slate-400'
+                      }`}
+                    />
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-indigo-100/60">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Quick Kakao Inquire Prompt */}
+          <div className="mt-10 p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+              <div className="text-sm font-bold text-slate-900">찾으시는 질문이 없으신가요?</div>
+              <div className="text-xs text-slate-500 mt-0.5">정휘용 대표와 카카오톡으로 실시간 1:1 대화를 나눌 수 있습니다.</div>
+            </div>
+            <a
+              href="https://open.kakao.com/o/sR2MZnNi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-[#FEE500] hover:bg-[#ebd300] px-4 py-2.5 text-xs font-bold text-[#191919] transition-all shadow-xs"
+            >
+              <MessageCircle className="w-4 h-4 fill-current" />
+              카카오톡으로 질문하기
+            </a>
           </div>
         </div>
       </section>
